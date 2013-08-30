@@ -150,8 +150,7 @@ package
 			);
 			
 			shaderProgram = context3D.createProgram();
-			shaderProgram.upload(vertexShaderAssembler.agalcode, 
-			fragmentShaderAssembler.agalcode);
+			shaderProgram.upload(vertexShaderAssembler.agalcode,fragmentShaderAssembler.agalcode);
 			
 			indexBuffer = context3D.createIndexBuffer(meshIndexData.length);
 			indexBuffer.uploadFromVector(meshIndexData, 0, meshIndexData.length);
