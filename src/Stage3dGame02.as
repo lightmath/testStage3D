@@ -254,67 +254,64 @@ package
 				{
 					case 0:
 						context3D.setTextureAt(0, myTexture);
-						context3D.setProgram(shaderProgram1);
+						context3D.setProgram ( shaderProgram1 );
 						modelMatrix.appendRotation(t*0.7, Vector3D.Y_AXIS);
 						modelMatrix.appendRotation(t*0.6, Vector3D.X_AXIS);
-						modelMatrix.appendRotation(t*1, Vector3D.Y_AXIS);
-						modelMatrix.appendTranslation(-3,3,0);
+						modelMatrix.appendRotation(t*1.0, Vector3D.Y_AXIS);
+						modelMatrix.appendTranslation(-3, 3, 0);
 						break;
-					
 					case 1:
 						context3D.setTextureAt(0, null);
-						context3D.setProgram(shaderProgram2);
+						context3D.setProgram ( shaderProgram2 );
 						modelMatrix.appendRotation(t*-0.2, Vector3D.Y_AXIS);
 						modelMatrix.appendRotation(t*0.4, Vector3D.X_AXIS);
 						modelMatrix.appendRotation(t*0.7, Vector3D.Y_AXIS);
-						modelMatrix.appendTranslation(3,3,0);
+						modelMatrix.appendTranslation(3, 3, 0);
 						break;
-					
 					case 2:
 						context3D.setTextureAt(0, myTexture);
-						context3D.setProgram(shaderProgram3);
+						context3D.setProgram ( shaderProgram3 );
 						modelMatrix.appendRotation(t*1.0, Vector3D.Y_AXIS);
 						modelMatrix.appendRotation(t*-0.2, Vector3D.X_AXIS);
 						modelMatrix.appendRotation(t*0.3, Vector3D.Y_AXIS);
-						modelMatrix.appendTranslation(-3,-3,0);
+						modelMatrix.appendTranslation(-3, -3, 0);
 						break;
-					
 					case 3:
-						context3D.setProgramConstantsFromVector(Context3DProgramType.FRAGMENT, 0, 
-									Vector.<Number>([1, Math.abs(Math.cos(t/50)), 0, 1]));
+						context3D.setProgramConstantsFromVector(
+							Context3DProgramType.FRAGMENT, 0, Vector.<Number>
+							([ 1, Math.abs(Math.cos(t/50)), 0, 1 ]) );
 						context3D.setTextureAt(0, myTexture);
-						context3D.setProgram(shaderProgram4);
+						context3D.setProgram ( shaderProgram4 );
 						modelMatrix.appendRotation(t*0.3, Vector3D.Y_AXIS);
 						modelMatrix.appendRotation(t*0.3, Vector3D.X_AXIS);
 						modelMatrix.appendRotation(t*-0.3, Vector3D.Y_AXIS);
-						modelMatrix.appendTranslation(3,-3,0);
+						modelMatrix.appendTranslation(3, -3, 0);
 						break;
 				}
+			
+//				重置矩阵，然后添加新的角度
+				modelViewProjection.identity();
+				modelViewProjection.append(modelMatrix);
+				modelViewProjection.append(viewMatrix);
+				modelViewProjection.append(projectionMatrix);
+					
+//				把矩阵传入着色器
+				context3D.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 0, modelViewProjection, true);
 				
+//				用当前着色器处理顶点数据
+//				顶点位置
+				context3D.setVertexBufferAt(0, vertexBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
+//				纹理坐标
+				context3D.setVertexBufferAt(1, vertexBuffer, 3, Context3DVertexBufferFormat.FLOAT_2);
+				
+				context3D.setVertexBufferAt(2, vertexBuffer, 8, Context3DVertexBufferFormat.FLOAT_4);
+				
+//				绘制三角面
+				context3D.drawTriangles(indexBuffer, 0, meshIndexData.length/3);
 			}
 			
-			//			重置矩阵，然后添加新的角度
-			modelViewProjection.identity();
-			modelViewProjection.append(modelMatrix);
-			modelViewProjection.append(viewMatrix);
-			modelViewProjection.append(projectionMatrix);
-			
-			//			把矩阵传入着色器
-			context3D.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 0, modelViewProjection, true);
-			
-			//			用当前着色器处理顶点数据
-			//			顶点位置
-			context3D.setVertexBufferAt(0, vertexBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
-			//			纹理坐标
-			context3D.setVertexBufferAt(1, vertexBuffer, 3, Context3DVertexBufferFormat.FLOAT_2);
-			
-			context3D.setVertexBufferAt(2, vertexBuffer, 8, Context3DVertexBufferFormat.FLOAT_4);
-			
-			//			绘制三角面
-			context3D.drawTriangles(indexBuffer, 0, meshIndexData.length/3);
-			//			呈现/交换后备缓冲区
+//			呈现/交换后备缓冲区
 			context3D.present();
-			
 			
 			fpsTicks++;
 			var now:uint = getTimer();
