@@ -206,7 +206,7 @@ package
 			modelMatrix.appendRotation(t*0.6, Vector3D.X_AXIS);
 			modelMatrix.appendRotation(t*1, Vector3D.Y_AXIS);
 			modelMatrix.appendTranslation(0,0,0);
-			modelMatrix.appendRotation(90, Vector3D.X_AXIS);
+			modelMatrix.appendRotation(60, Vector3D.X_AXIS);
 			
 			t += 2.0;
 			
@@ -223,7 +223,7 @@ package
 //			顶点位置
 			context3D.setVertexBufferAt(0, vertexBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
 //			纹理坐标
-			context3D.setVertexBufferAt(1, vertexBuffer, 3, Context3DVertexBufferFormat.FLOAT_3);
+			context3D.setVertexBufferAt(1, vertexBuffer, 3, Context3DVertexBufferFormat.FLOAT_2);
 			
 //			使用哪个纹理
 			context3D.setTextureAt(0, myTexture);
