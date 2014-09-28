@@ -26,7 +26,7 @@ import flash.text.*;
 [SWF(width="640", height="480", frameRate="60", 
 backgroundColor="#000000")]	
 
-public class Stage3dGame extends Sprite
+public class Stage3dGame06 extends Sprite
 {
 
 // available blend/texture/mesh
@@ -155,7 +155,7 @@ private var myMesh5:Stage3dObjParser;
 private var terrainObjData:Class;
 private var terrainMesh:Stage3dObjParser;
 
-public function Stage3dGame() 
+public function Stage3dGame06() 
 {
 	if (stage != null) 
 		init();
